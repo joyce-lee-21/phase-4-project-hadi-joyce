@@ -86,7 +86,10 @@ const useStyles = makeStyles((theme) => ({
   },
   review_width:{
     width: '80%',
-  }
+  },
+  button: {
+    padding: '5px',
+  },
 }));
 
 
