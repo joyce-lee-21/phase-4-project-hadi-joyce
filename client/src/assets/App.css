@@ -61,14 +61,14 @@ body{
 }
 
 .nav-right {
-  width: 200px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .nav-right button {
-  margin: 5px;
+  /* margin: 5px; */
   width: 100px;
 }
 

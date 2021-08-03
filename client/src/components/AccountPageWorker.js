@@ -22,6 +22,7 @@ function AccountPageWorker({classes, view, setView}) {
                     <p>Location:</p>
                     <p>Username:</p>
                     <p>Password:</p>
+                    <p>Image URL: </p>
                     <br></br>
                     <h4>Service Prices</h4>
                     <p>Carpentry:</p>
@@ -84,6 +85,16 @@ function AccountPageWorker({classes, view, setView}) {
                             id="password"
                             // onChange={(e)=>{setEnterLoginPD(e.target.value)}}
                             // value={enterLoginPD}
+                        />
+                        <TextField
+                            variant="filled"
+                            margin="normal"
+                            fullWidth
+                            id="image"
+                            label="Image URL"
+                            autoFocus
+                            // onChange={(e)=>{setEnterLoginUsername(e.target.value)}}
+                            // value={enterLoginUsername}
                         />
                         <h4>Service Prices</h4>
                         <TextField

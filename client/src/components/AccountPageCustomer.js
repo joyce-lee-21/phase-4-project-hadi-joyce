@@ -21,6 +21,7 @@ function AccountPageCustomer({classes, view, setView}) {
                     <p>Budget/Month:</p>
                     <p>Username:</p>
                     <p>Password:</p>
+                    <p>Image URL: </p>
                     <Button 
                         type="submit"
                         variant="contained"
@@ -89,6 +90,16 @@ function AccountPageCustomer({classes, view, setView}) {
                                 id="password"
                                 // onChange={(e)=>{setEnterLoginPD(e.target.value)}}
                                 // value={enterLoginPD}
+                            />
+                            <TextField
+                                variant="filled"
+                                margin="normal"
+                                fullWidth
+                                id="image"
+                                label="Image URL"
+                                autoFocus
+                                // onChange={(e)=>{setEnterLoginUsername(e.target.value)}}
+                                // value={enterLoginUsername}
                             />
                             <div className="edit-btn-grp">
                                 <Button 

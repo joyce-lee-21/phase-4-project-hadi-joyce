@@ -3,9 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import React, { useState } from "react";
 
-
-function Login({classes}) {
+function Login({classes, setUsername, setPassword}) {
     
     return (
         <div>
@@ -15,24 +15,22 @@ function Login({classes}) {
                     <TextField
                     variant="filled"
                     margin="normal"
-                    // required
+                    required
                     fullWidth
                     id="username"
                     label="Username"
                     autoFocus
-                    // onChange={(e)=>{setEnterLoginUsername(e.target.value)}}
-                    // value={enterLoginUsername}
+                    onChange={(e)=>{setUsername(e.target.value)}}
                     />
                     <TextField
                     variant="filled"
                     margin="normal"
-                    // required
+                    required
                     fullWidth
                     label="Password"
                     type="password"
                     id="password"
-                    // onChange={(e)=>{setEnterLoginPD(e.target.value)}}
-                    // value={enterLoginPD}
+                    onChange={(e)=>{setPassword(e.target.value)}}
                     />
                     <Link to="/account" style={{color: 'inherit', textDecoration: 'none'}}>
                         <Button 
