@@ -3,12 +3,15 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react';
 
 
-function SignUp( {classes, userType, setUserType} ) {
+function SignUp( {classes, userType, setUserType, setName, setLocation, setUsername, setPassword} ) {
 
-    const handleSignUp = (data) => {
-        console.log(data)
+
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        // console.log(name)
     }
     
     return (
@@ -35,17 +38,25 @@ function SignUp( {classes, userType, setUserType} ) {
             </div>
             <div className="signup-render">
                 <Container component="main" maxWidth="xs">
-                    <form className={classes.form} noValidate onSubmit={handleSignUp}>
+                    <form className={classes.form} noValidate onSubmit={(e)=>handleSignUp(e)}>
                         <TextField
                         variant="filled"
-                        // margin="normal"
-                        // required
+                        margin="normal"
                         fullWidth
                         id="name-required"
                         label="First and Last Name"
                         helperText="*Required"
-                        autoFocus
-                        // onChange={(e)=>{setEnterLoginUsername(e.target.value)}}
+                        onChange={(e)=>{setName(e.target.value)}}
+                        // value={enterLoginUsername}
+                        />
+                        <TextField
+                        variant="filled"
+                        margin="normal"
+                        fullWidth
+                        id="location-required"
+                        label="Location (Postal Code)"
+                        helperText="*Required"
+                        onChange={(e)=>{setLocation(e.target.value)}}
                         // value={enterLoginUsername}
                         />
                         <TextField
@@ -55,20 +66,18 @@ function SignUp( {classes, userType, setUserType} ) {
                         id="username"
                         label="Username"
                         helperText="*Required"
-                        autoFocus
-                        // onChange={(e)=>{setEnterLoginUsername(e.target.value)}}
+                        onChange={(e)=>{setUsername(e.target.value)}}
                         // value={enterLoginUsername}
                         />
                         <TextField
                         variant="filled"
                         margin="normal"
                         fullWidth
-                        name="password"
                         label="Password"
                         type="password"
                         id="password"
                         helperText="*Required"
-                        // onChange={(e)=>{setEnterLoginPD(e.target.value)}}
+                        onChange={(e)=>{setPassword(e.target.value)}}
                         // value={enterLoginPD}
                         />
                         <Link to="/account" style={{color: 'inherit', textDecoration: 'none'}}>

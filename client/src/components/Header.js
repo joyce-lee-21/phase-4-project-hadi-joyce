@@ -12,6 +12,7 @@ function Header({userType, userStatus}) {
             </div>
             {userStatus === "login" 
                 ? <div className="nav-right">
+                    <h4>Welcome, NAME!</h4>
                     <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
                         <Button variant="contained" color="primary">Account</Button>
                     </NavLink>

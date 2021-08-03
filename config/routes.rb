@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  
-  resources :servies, :customers, :timeslot, :users, :appointments, :workers
+  resources :services, :customers, :timeslots, :users, :appointments, :workers
   
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
-  # get '/signin', to: 'session'
+  
+  # User login
+  # get '/users', to: "users#index"
+  get '/login', to: 'sessions#create'
+
+  # Signup
+  
 end

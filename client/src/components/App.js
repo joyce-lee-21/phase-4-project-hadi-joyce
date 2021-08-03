@@ -95,23 +95,30 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const [name, setName] = useState("")
+  const [location, setLocation] = useState(0)
+  const [budget, setBudget] = useState(0)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [userType, setUserType] = useState("customer"); //customer or helper
-  const [userStatus, setUserStatus] = useState("login"); //username
+  const [userStatus, setUserStatus] = useState("login"); //username or empty strings
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Router>
+            <>
             <Header classes={classes} userType={userType} userStatus={userStatus}/>
+            {userStatus === "" ? <h1>Welcome! Please Login or Sign Up</h1> : null}
             <Switch>
               <Route exact path="/login">
-                <Login classes={classes}/>
+                <Login classes={classes} setUsername={setUsername} setPassword={setPassword}/>
               </Route>
               <Route exact path="/signup">
-                <SignUp classes={classes} userType={userType} setUserType={setUserType}/>
+                <SignUp classes={classes} userType={userType} setUserType={setUserType} setUsername={setUsername} setPassword={setPassword} setName={setName} setLocation={setLocation}/>
               </Route>
               <Route exact path="/account">
-                <AccountPage classes={classes} userType={userType}/>
+                <AccountPage classes={classes} userType={userType} name={name} username={username} password={password}/>
               </Route>
               <Route exact path="/home">
                 {userType === "customer" 
@@ -120,6 +127,7 @@ function App() {
                 }
               </Route>
             </Switch>
+            </>
         </Router>
       </ThemeProvider>
     </div>
