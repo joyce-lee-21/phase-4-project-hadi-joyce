@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import HomepageWorkersList from "./HomepageWorkersList";
 import HomepageApptComplete from "./HomepageApptComplete";
 import HomepageApptSubmit from "./HomepageApptSubmit";
+import Welcome from "./Welcome";
 
 
 function Homepage({classes, userType}) {
@@ -16,6 +17,7 @@ function Homepage({classes, userType}) {
 
     return (
         <>
+        <Welcome title='Homepage' />
             <div className="homepage-top">
                 <Grid item xs={4}>
                     <Paper className={classes.homepage_top}>

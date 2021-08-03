@@ -121,7 +121,7 @@ function App() {
                 <AccountPage classes={classes} userType={userType} name={name} username={username} password={password}/>
               </Route>
               <Route exact path="/home">
-                {userType === "customer" 
+                {userType !== "customer" 
                   ? <Homepage classes={classes} userType={userType}/>
                   : <Dashboard classes={classes} userType={userType}/>
                 }

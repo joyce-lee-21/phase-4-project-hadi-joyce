@@ -1,0 +1,13 @@
+.welcome p{
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.title{
+    text-align: center;
+    background-color: lightgray;
+    padding: 2% 13%;
+    width: fit-content;
+    margin: 17px auto;
+    border: 1px solid;
+}
