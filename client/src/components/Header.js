@@ -1,7 +1,7 @@
 import {NavLink} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
-function Header({userType, userStatus}) {
+function Header({userType, userStatus, name}) {
 
     return (
         <div className="header">
@@ -11,18 +11,23 @@ function Header({userType, userStatus}) {
                 </NavLink>
             </div>
             {userStatus === "login" 
-                ? <div className="nav-right">
-                    <h4>Welcome, NAME!</h4>
-                    <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" color="primary">Account</Button>
-                    </NavLink>
-                    <NavLink to="/home" className="nav-link" style={{ textDecoration: 'none' }}>
-                    {userType === "customer"
-                        ? <Button variant="contained" color="primary">Homepage</Button>
-                        : <Button variant="contained" color="primary">Dashboard</Button>
-                    }
-                    </NavLink>
-                </div>
+                ? <>
+                    <h4>{`Welcome, ${name}!`}</h4>
+                    <div className="nav-right">
+                        <NavLink to="/account" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="primary">Account</Button>
+                        </NavLink>
+                        <NavLink to="/home" className="nav-link" style={{ textDecoration: 'none' }}>
+                        {userType === "customer"
+                            ? <Button variant="contained" color="primary">Homepage</Button>
+                            : <Button variant="contained" color="primary">Dashboard</Button>
+                        }
+                        </NavLink>
+                        <NavLink to="/" className="nav-link" style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="primary">Logout</Button>
+                        </NavLink>
+                    </div>
+                </>
                 : <div className="nav-right">
                     <NavLink to="/login" className="nav-link" style={{ textDecoration: 'none' }}>
                         <Button variant="contained" color="primary">Login</Button>

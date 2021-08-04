@@ -98,27 +98,64 @@ function App() {
   const [name, setName] = useState("")
   const [location, setLocation] = useState(0)
   const [budget, setBudget] = useState(0)
+  const [services, setServices] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [userType, setUserType] = useState("customer"); //customer or helper
-  const [userStatus, setUserStatus] = useState("login"); //username or empty strings
+  const [user, setUser] = useState(null)
+  const [userType, setUserType] = useState(""); //customer or helper
+  const [userStatus, setUserStatus] = useState("logout"); //username or empty strings
+
+  const onLogin = (user) => {
+    setUser(user)
+    setUserStatus("login")
+    setName(user.profile.name)
+    setLocation(user.profile.location)
+    setUserType(user.profile_type)
+  }
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Router>
             <>
-            <Header classes={classes} userType={userType} userStatus={userStatus}/>
-            {userStatus === "" ? <h1>Welcome! Please Login or Sign Up</h1> : null}
+            <Header classes={classes} userType={userType} userStatus={userStatus} name={name}/>
+            {userStatus === "logout" ? <h1>Welcome! Please Login or Sign Up</h1> : null}
             <Switch>
               <Route exact path="/login">
-                <Login classes={classes} setUsername={setUsername} setPassword={setPassword}/>
+                <Login 
+                  classes={classes} 
+                  username={username} 
+                  password={password} 
+                  setUsername={setUsername} 
+                  setPassword={setPassword} 
+                  onLogin={onLogin}
+                />
               </Route>
               <Route exact path="/signup">
-                <SignUp classes={classes} userType={userType} setUserType={setUserType} setUsername={setUsername} setPassword={setPassword} setName={setName} setLocation={setLocation}/>
+                <SignUp 
+                  classes={classes} 
+                  userType={userType} 
+                  setUserType={setUserType} 
+                  setUsername={setUsername} 
+                  setPassword={setPassword} 
+                  setName={setName} 
+                  setLocation={setLocation}
+                />
               </Route>
               <Route exact path="/account">
-                <AccountPage classes={classes} userType={userType} name={name} username={username} password={password}/>
+                <AccountPage 
+                  classes={classes} 
+                  userType={userType} 
+                  name={name} 
+                  setName={setName} 
+                  username={username} 
+                  setUsername={setUsername} 
+                  password={password} 
+                  setPassword={setPassword} 
+                  budget={budget} 
+                  setBudget={setBudget}
+                  user={user}
+                />
               </Route>
               <Route exact path="/home">
                 {userType !== "customer" 

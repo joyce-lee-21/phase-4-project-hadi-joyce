@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
     def index 
-        @users = User.all 
-        render json: @users 
+      @users = User.all 
+      render json: @users
     end
 
     def show
-        user = User.find_by(id: params[:id])
-        render json: @user
-      end
+      user = User.find_by(id: params[:id])
+      render json: @user
+    end
     
       # signup 
       def create
@@ -15,12 +15,12 @@ class UsersController < ApplicationController
           customer = Customer.create(customer_params)
           @user = User.create(:username, :password_digest, :profile_type, :profile_id)
           render json: @user, status: :created, location: @user
-        else
+        elsif params[:profile_type] == "Worker"
           worker = Worker.create(worker_params)
           @user = User.create(user_params)
           render json: @user, status: :created, location: @user
         else
-          render json: @user.errors.full_messages, status: :unprocessable_entity
+          render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
         end
       end
 

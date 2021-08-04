@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :password_digest
       t.string :profile_type
       t.integer :profile_id
-
+  
       t.timestamps
     end
   end
