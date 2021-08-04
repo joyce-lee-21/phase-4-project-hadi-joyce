@@ -2,7 +2,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
-function AccountPageCustomer({classes, view, setView}) {
+function AccountPageCustomer({classes, view, setView, name, username, password, budget, user}) {
     const handleAccountEdit = () => {
         setView("edit")
     }
@@ -14,9 +14,10 @@ function AccountPageCustomer({classes, view, setView}) {
     return (
         <div>
             {view === "view"
-                ?<>
+                ?
+                <div className="account-container">
                     <h2>Customer Account Details</h2>
-                    <p>Name: </p>
+                    <p>Name: {user.profile.name}</p>
                     <p>Location:</p>
                     <p>Budget/Month:</p>
                     <p>Username:</p>
@@ -31,9 +32,9 @@ function AccountPageCustomer({classes, view, setView}) {
                     >
                         Edit
                     </Button>
-                </>
+                </div>
                 : 
-                <>
+                <div className="account-container">
                     <h2>Edit Customer Account Details</h2>
                         <form className={classes.form} noValidate>
                             <TextField
@@ -124,7 +125,7 @@ function AccountPageCustomer({classes, view, setView}) {
                                 </Button>
                             </div>
                         </form>
-                </>
+                </div>
             }
         </div>
     )

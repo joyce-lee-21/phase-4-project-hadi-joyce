@@ -6,8 +6,6 @@ class CreateCustomers < ActiveRecord::Migration[6.1]
       t.integer :location  
       t.integer :budget 
       t.string :description 
-
-
       t.timestamps
     end
   end

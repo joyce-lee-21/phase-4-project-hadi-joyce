@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-function AccountPageWorker({classes, view, setView}) {
+function AccountPageWorker({classes, view, setView, user}) {
     const handleAccountEdit = () => {
         setView("edit")
     }
@@ -16,16 +16,17 @@ function AccountPageWorker({classes, view, setView}) {
         <div>
             {view === "view"
                 ? 
-                <>
+                <div className="account-container">
                     <h2>Helper Account Details</h2>
-                    <p>Name: </p>
-                    <p>Location:</p>
-                    <p>Username:</p>
-                    <p>Password:</p>
-                    <p>Image URL: </p>
+                    <img src={user.profile.image_url}></img>
+                    <br></br>
+                    <p>Name: {user.profile.name}</p>
+                    <p>Location: {user.profile.location}</p>
+                    <p>Username: {user.username}</p>
+                    <p>Password: {user.password}</p>
                     <br></br>
                     <h4>Service Prices</h4>
-                    <p>Carpentry:</p>
+                    <p>Carpentry: </p>
                     <p>Lawncare:</p>
                     <p>Appliance Maintenance:</p>
                     <p>Pest Control:</p>
@@ -39,9 +40,9 @@ function AccountPageWorker({classes, view, setView}) {
                     >
                         Edit
                     </Button>
-                </>
+                </div>
                 : 
-                <>
+                <div className="account-container">
                     <h2>Edit Helper Account Details</h2>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -170,7 +171,7 @@ function AccountPageWorker({classes, view, setView}) {
                             </Button>
                         </div>
                     </form>
-                </>
+                </div>
             }
         </div>
     )
