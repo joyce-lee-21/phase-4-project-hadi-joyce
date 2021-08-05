@@ -4,26 +4,33 @@ import DashboardEarnings from "./DashboardEarnings";
 import DashboardReviews from "./DashboardReviews";
 import Welcome from "./Welcome";
 import '../assets/Dashboard.css'
-import { getAppointments } from "../services/appointments";
+import { getAppointments, acceptAppointment , getAppointmentsSummary} from "../services/appointments";
 
 
 function Dashboard() {
 
-    const workers=[]
  
     const [requestedAppointments, setRequestedAppointments]= useState([])
     const [upcomingAppointments, setUpcomingAppointments]= useState([])
-    const [singleAppointment, setSingleAppointment] = useState({})
+    const [appointmentSummary, setAppointmentSummary]= useState({total_cost:0, tips:0})
+
+    const loadAppointments=()=>{
+        getAppointments("requested").then((appointments=>setRequestedAppointments(appointments)))
+        getAppointments("confirmed").then((appointments=>setUpcomingAppointments(appointments)))
+        getAppointmentsSummary().then(summary=>setAppointmentSummary(summary)) 
+    }
     useEffect(() => {
-       getAppointments("requested").then((appointments=>setRequestedAppointments(appointments)))
-       getAppointments("confirmed").then((appointments=>setUpcomingAppointments(appointments)))
+     loadAppointments()
     }, [])
 
 
     const handleAccept = (appointment) => {
-        setSingleAppointment(appointment)
-        console.log(appointment)
+        acceptAppointment(appointment.id).then(()=>{
+            loadAppointments()
+        }).catch((e)=>{alert("Couldn't accept appointment")})
     }
+
+
 
     return (
         <div className="dashboard">
@@ -53,18 +60,18 @@ function Dashboard() {
 
                     <div className='upcoming box'>
                         <b>Upcoming</b>
-                        {singleAppointment.id && 
-                                   <div className='incoming-list'>
+                        {upcomingAppointments.map(appointment=>{
+                                  return <div className='incoming-list'>
                                 <ul>
-                                <li>{singleAppointment.worker.name}</li>
+                                <li>{appointment.worker.name}</li>
                                 <li>{"address"}</li>
-                                <li>{singleAppointment.services}</li>
-                                <li>TOTAL COST: <b>{singleAppointment.total_cost}</b></li>
-                                
+                                <li>{appointment.services}</li>
+                                <li>TOTAL COST: <b>{appointment.total_cost}</b></li>
+                               
                             </ul>
                               </div>
 
-                            }
+                            })}
 
                     </div>
 
@@ -90,9 +97,9 @@ function Dashboard() {
                 <b>Earnings</b>
 
                 <ul>
-                    <li>Total: </li>
-                    <li>Appointment Charges: </li>
-                    <li>Tips: </li>
+                    <li>Total:{appointmentSummary.total_cost+appointmentSummary.tips }  </li>
+                    <li>Appointment Charges:{appointmentSummary.total_cost}  </li>
+                    <li>Tips:{appointmentSummary.tips}  </li>
                 </ul>
             </div>
             <div className='reviews'>

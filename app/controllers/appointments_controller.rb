@@ -34,6 +34,13 @@ class AppointmentsController < ApplicationController
     @appointment.destroy
   end
 
+  def summary
+    confirmed_appointments= current_user.profile.appointments.where(status: :confirmed)
+    total_cost  =  confirmed_appointments.sum(:total_cost)
+    tips = confirmed_appointments.sum(:tip)
+    return render json: {total_cost: total_cost, tips: tips}
+  end
+
   private
 
   def set_appointment
