@@ -1,24 +1,29 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Rating from '@material-ui/lab/Rating';
+import {useState} from 'react';
 
-function HomepageWorkersList({classes, setHomepageView}) {
+function HomepageWorkersList({classes, setHomepageView, user}) {
+    const [workersMatched, setWorkersMatched] = useState([])
 
     const handleClick = () => {
         setHomepageView("apptsubmit")
     }
+    const matches = user.profile.workers_matched
 
     return (
         <>
             <h4>Helpers Available within 10 miles of ZIPCODE</h4>
-            {/* For each helper matched, create a new list item */}
+            {matches.map((match) => 
                 <Paper className={classes.homepage_bottom}>
                     <Grid item xs={1}/>
                     <Grid item xs={2} className={classes.img}>
-                        <img src="https://www.wikihow.com/images/thumb/7/7e/Draw-a-Cartoon-Man-Step-15-preview-Version-2.jpg/550px-nowatermark-Draw-a-Cartoon-Man-Step-15-preview-Version-2.jpg.webp"></img>
+                        <img src={`${match.image_url}`}></img>
                     </Grid>
                     <Grid item xs={3}>
                         {/* <span> */}
+                            <h4>{match.name}</h4>
                             <h5>Service Prices</h5>
                             <p>Carpentry:</p>
                             <p>Lawncare:</p>
@@ -29,8 +34,10 @@ function HomepageWorkersList({classes, setHomepageView}) {
                     </Grid>
                     <Grid item xs={5}>
                         {/* <span> */}
-                            <p>Rating: </p>
-                            <p>Reviews: </p>
+                            <p>Rating: 
+                                <Rating name="read-only" defaultValue={match.average_rating} precision={0.5} readOnly/>
+                            </p>
+                            <p>Reviews: {match.review}</p>
                             <Button 
                             type="submit"
                             variant="contained"
@@ -43,6 +50,7 @@ function HomepageWorkersList({classes, setHomepageView}) {
                         {/* </span> */}
                     </Grid>
                 </Paper>
+            )}
         </>
     )
 }
