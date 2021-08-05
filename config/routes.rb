@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :services, :customers, :timeslots, :users, :appointments, :workers
+  resources :services, :customers, :timeslots, :users, :workers
+  resources :appointments do
+    
+    get :summary, on: :collection
+
+  end
   
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
   
