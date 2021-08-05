@@ -5,8 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import AccountPageCustomer from './AccountPageCustomer';
 import AccountPageWorker from './AccountPageWorker';
 
-function AccountPage({classes,userType,name,setName,username,setUsername,password,setPassword,budget,setBudget,user}) {
-    const [view, setView] = useState("view")
+function AccountPage({classes,userType,user,accountChanges}) {
+
+    console.log(userType)
 
     return (
         <div>
@@ -14,26 +15,31 @@ function AccountPage({classes,userType,name,setName,username,setUsername,passwor
                 <Grid item xs={3}/>
                     <Grid item xs={6}>
                     <Paper className={classes.account}>
-                        {userType === "customer" 
-                            ? <AccountPageCustomer 
+                        {userType === "Customer" 
+                            ? (<AccountPageCustomer 
                                 classes={classes} 
-                                view={view} 
-                                setView={setView}  
-                                name={name} 
-                                username={username} 
-                                password={password} 
-                                budget={budget} 
+                                // view={view} 
+                                // setView={setView}  
                                 user={user}
-                            />
-                            : <AccountPageWorker 
-                                classes={classes} 
-                                view={view} 
-                                setView={setView}
-                                name={name} 
-                                username={username} 
-                                password={password}
-                                user={user}
-                            />
+                                accountChanges={accountChanges}
+                            />)
+                            : userType === "Worker"
+                                ? (<AccountPageWorker 
+                                    classes={classes} 
+                                    // view={view} 
+                                    // setView={setView}
+                                    // name={name} 
+                                    // location={location}
+                                    // username={username} 
+                                    // password={password}
+                                    user={user}
+                                    // setName={setName} 
+                                    // setLocation={setLocation} 
+                                    // setUsername={setUsername}
+                                    // setPassword={setPassword}
+                                    accountChanges={accountChanges}
+                                />)
+                                : null
                         }
                     </Paper>
                     </Grid>
