@@ -1,8 +1,10 @@
 class AppointmentsController < ApplicationController
   # before_action :set_appointment, only: [:show, :update, :destroy]
+  # before_action :authorize
  
   def index
-    @appointments = Appointment.all
+    status= params[:status]
+    @appointments = status ? current_user.profile.appointments.where(status: status) : current_user.profile.appointments.all
     render json: @appointments
   end
 

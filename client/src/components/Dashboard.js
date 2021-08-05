@@ -1,10 +1,30 @@
+import { useEffect, useState } from "react";
 import DashboardAppt from "./DashboardAppt";
 import DashboardEarnings from "./DashboardEarnings";
 import DashboardReviews from "./DashboardReviews";
 import Welcome from "./Welcome";
 import '../assets/Dashboard.css'
+import { getAppointments } from "../services/appointments";
+
 
 function Dashboard() {
+
+    const workers=[]
+ 
+    const [requestedAppointments, setRequestedAppointments]= useState([])
+    const [upcomingAppointments, setUpcomingAppointments]= useState([])
+    const [singleAppointment, setSingleAppointment] = useState({})
+    useEffect(() => {
+       getAppointments("requested").then((appointments=>setRequestedAppointments(appointments)))
+       getAppointments("confirmed").then((appointments=>setUpcomingAppointments(appointments)))
+    }, [])
+
+
+    const handleAccept = (appointment) => {
+        setSingleAppointment(appointment)
+        console.log(appointment)
+    }
+
     return (
         <div className="dashboard">
             <Welcome title="Dashboard" />
@@ -14,64 +34,52 @@ function Dashboard() {
                 <div className='children-appointments'>
                     <div className='incoming box'>
                         <b>Incoming Requests</b>
-                        <div className='incoming-list'>
-                            <ul>
-                                <li>JOHHN DOE</li>
-                                <li>[ADDRESS]</li>
-                                <li>[SERVICES]</li>
-                                <li>TOTAL COST: <b>$5</b></li>
+                      
+                            {requestedAppointments.map(appointment=>{
+                                  return <div className='incoming-list'>
+                                <ul>
+                                <li>{appointment.worker.name}</li>
+                                <li>{"address"}</li>
+                                <li>{appointment.services}</li>
+                                <li>TOTAL COST: <b>{appointment.total_cost}</b></li>
+                                <li><button onClick={() => handleAccept(appointment)}>accept</button></li>
                             </ul>
+                              </div>
 
-                            <button>Accept</button>
-                        </div>
-
-                        <div className='incoming-list'>
-                            <ul>
-                                <li>JOHHN DOE</li>
-                                <li>[ADDRESS]</li>
-                                <li>[SERVICES]</li>
-                                <li>TOTAL COST: <b>$5</b></li>
-                            </ul>
-
-                            <button>Accept</button>
-                        </div>
+                            })}
+                          
                     </div>
 
 
                     <div className='upcoming box'>
                         <b>Upcoming</b>
-                        <ul>
-                            <li>JOHHN DOE</li>
-                            <li>[ADDRESS]</li>
-                            <li>[SERVICES]</li>
-                            <li>TOTAL COST: <b>$5</b></li>
-                        </ul>
+                        {singleAppointment.id && 
+                                   <div className='incoming-list'>
+                                <ul>
+                                <li>{singleAppointment.worker.name}</li>
+                                <li>{"address"}</li>
+                                <li>{singleAppointment.services}</li>
+                                <li>TOTAL COST: <b>{singleAppointment.total_cost}</b></li>
+                                
+                            </ul>
+                              </div>
 
-                        <ul>
-                            <li>JOHHN DOE</li>
-                            <li>[ADDRESS]</li>
-                            <li>[SERVICES]</li>
-                            <li>TOTAL COST: <b>$5</b></li>
-                        </ul>
+                            }
 
                     </div>
 
                     <div className='completed box'>
                         <b>Completed</b>
                         <ul>
-                            <li>JOHHN DOE</li>
-                            <li>[ADDRESS]</li>
-                            <li>[SERVICES]</li>
-                            <li>TOTAL COST: <b>$5</b></li>
+                            <li>worker.name</li>
+                            <li>worker.address</li>
+                            <li>worker.services.map(service=>service.service).join(",")}</li>
+                            <li>TOTAL COST: <b></b></li>
                         </ul>
 
                         <div className='randr'>
-                            <p>Rating: 5.0</p>
-                            <p>Review: lorem ipsum hgfgefgg fruifrfr
-                                iu userBlockin
-                                gPairsForSimpleEvhrffrvhfh ffruiri
-                                rufiu fefiue
-                                entPlugin</p>
+                            <p>worker.rating</p>
+                            <p>worker.review</p>
                         </div>
                     </div>
                 </div>
