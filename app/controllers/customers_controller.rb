@@ -26,6 +26,9 @@ class CustomersController < ApplicationController
     end
   end
   
+  # def match
+
+  # end
   # def destroy
   #   @customer.destroy
   # end

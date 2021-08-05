@@ -1,3 +1,4 @@
+// import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
@@ -5,9 +6,12 @@ import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
 import {useHistory} from 'react-router-dom'
 
-function Login({classes, username, password, setUsername, setPassword, onLogin}) {
+function Login({classes, onLogin}) {
     const history = useHistory();
     const [errors, setErrors] = useState([])
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +29,7 @@ function Login({classes, username, password, setUsername, setPassword, onLogin})
             })
             if(res.ok){
                 const user = await res.json()
+                console.log(user)
                 onLogin(user)
                 history.push('/account')
             } else {
@@ -39,7 +44,7 @@ function Login({classes, username, password, setUsername, setPassword, onLogin})
         <div>
             <Container component="main" maxWidth="xs">
                 <h2>Login to your account</h2>
-                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <form className={classes.form} noValidate onSubmit={(e)=>{handleSubmit(e)}}>
                     <TextField
                     variant="filled"
                     margin="normal"
@@ -71,9 +76,10 @@ function Login({classes, username, password, setUsername, setPassword, onLogin})
                             Login
                         </Button>
                     {/* </Link> */}
-                    {errors.map((error) => (
+                    {errors ? errors.map((error) => (
                         <p>{error}</p>
-                    ))}
+                    ))
+                    : null}
                 </form>
             </Container>
         </div>

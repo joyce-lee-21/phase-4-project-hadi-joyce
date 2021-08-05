@@ -12,4 +12,8 @@ class User < ApplicationRecord
     def timeslots
         self.profile_type == "Worker" ? self.profile.timeslots : nil
     end
+
+    def appointments
+        self.profile.appointments
+    end
 end
