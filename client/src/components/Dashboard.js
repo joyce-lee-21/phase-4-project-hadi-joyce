@@ -12,11 +12,14 @@ function Dashboard() {
  
     const [requestedAppointments, setRequestedAppointments]= useState([])
     const [upcomingAppointments, setUpcomingAppointments]= useState([])
+    const [completedAppointments, setCompletedAppointments]= useState([])
+    
     const [appointmentSummary, setAppointmentSummary]= useState({total_cost:0, tips:0})
 
     const loadAppointments=()=>{
         getAppointments("requested").then((appointments=>setRequestedAppointments(appointments)))
-        getAppointments("confirmed").then((appointments=>setUpcomingAppointments(appointments)))
+        getAppointments("accepted").then((appointments=>setUpcomingAppointments(appointments)))
+        getAppointments("completed").then((appointments=>setCompletedAppointments(appointments)))
         getAppointmentsSummary().then(summary=>setAppointmentSummary(summary)) 
     }
     useEffect(() => {
@@ -45,29 +48,29 @@ function Dashboard() {
                             {requestedAppointments.map(appointment=>{
                                   return <div className='incoming-list'>
                                 <ul>
-                                <li>{appointment.worker.name}</li>
-                                <li>{"address"}</li>
-                                <li>{appointment.services}</li>
+                                <li>ID: {appointment.id}</li>
+                                <li>Status: {appointment.status}</li>
+                                <li>Name: {appointment.worker.name}</li>
+                                <li>Services Offered: {appointment.services}</li>
                                 <li>TOTAL COST: <b>{appointment.total_cost}</b></li>
-                                <li><button onClick={() => handleAccept(appointment)}>accept</button></li>
+                                <li><button onClick={() => handleAccept(appointment)}>Accept</button></li>
                             </ul>
                               </div>
 
-                            })}
-                          
+                            })}                          
                     </div>
-
 
                     <div className='upcoming box'>
                         <b>Upcoming</b>
                         {upcomingAppointments.map(appointment=>{
                                   return <div className='incoming-list'>
                                 <ul>
-                                <li>{appointment.worker.name}</li>
-                                <li>{"address"}</li>
-                                <li>{appointment.services}</li>
+                                <li>ID: {appointment.id}</li>
+                                <li>Status: {appointment.status}</li>
+                                <li>Name: {appointment.worker.name}</li>
+                                <li>Services Offered: {appointment.services}</li>
                                 <li>TOTAL COST: <b>{appointment.total_cost}</b></li>
-                               
+                                <li><button onClick={() => handleAccept(appointment)}>Mark as complete</button></li>
                             </ul>
                               </div>
 
@@ -77,17 +80,19 @@ function Dashboard() {
 
                     <div className='completed box'>
                         <b>Completed</b>
-                        <ul>
-                            <li>worker.name</li>
-                            <li>worker.address</li>
-                            <li>worker.services.map(service=>service.service).join(",")}</li>
-                            <li>TOTAL COST: <b></b></li>
-                        </ul>
+                        {completedAppointments.map(appointment=>{
+                                  return <div className='incoming-list'>
+                                <ul>
+                                <li>ID: {appointment.id}</li>
+                                <li>Status: {appointment.status}</li>
+                                <li>Name: {appointment.worker.name}</li>
+                                <li>Services Offered: {appointment.services}</li>
+                                <li>Total Cost: <b>{appointment.total_cost}</b></li>
+                                <li>Tip Amount: <b>{appointment.tip}</b></li>
+                            </ul>
+                              </div>
 
-                        <div className='randr'>
-                            <p>worker.rating</p>
-                            <p>worker.review</p>
-                        </div>
+                            })}
                     </div>
                 </div>
             </div>
@@ -97,12 +102,12 @@ function Dashboard() {
                 <b>Earnings</b>
 
                 <ul>
-                    <li>Total:{appointmentSummary.total_cost+appointmentSummary.tips }  </li>
-                    <li>Appointment Charges:{appointmentSummary.total_cost}  </li>
-                    <li>Tips:{appointmentSummary.tips}  </li>
+                    <li>Total: <b>{appointmentSummary.total_cost+appointmentSummary.tips}</b></li>
+                    <li>Appointment Charges: <b>{appointmentSummary.total_cost}</b></li>
+                    <li>Tips: <b>{appointmentSummary.tips}</b></li>
                 </ul>
             </div>
-            <div className='reviews'>
+            {/* <div className='reviews'>
                 <b>Reviews</b>
                 <p>
                     <span>[CUSTOMER USERNAME]</span>
@@ -121,7 +126,7 @@ function Dashboard() {
                     t4iopttoi4t4i4ot4ijot r4tij4otio
                     fu44iurr4r4i4r ffiuriuiu
                 </p>
-            </div>
+            </div> */}
 
         </div>
     )

@@ -29,7 +29,7 @@ function Login({classes, onLogin}) {
             })
             if(res.ok){
                 const user = await res.json()
-                console.log(user)
+                console.log(user, "<====user")
                 onLogin(user)
                 history.push('/account')
             } else {

@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+i think the AccountPageWorker
+copy and paste what I have for AccountPageCustomer to make sure the data populates
+make sure the Dashboard works - i dont think i’m going to have time to review that
+tomorrow i’ll try to connect the appointment requests being passed from customer to worker

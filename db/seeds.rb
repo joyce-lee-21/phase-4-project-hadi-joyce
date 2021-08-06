@@ -36,10 +36,10 @@ timeslots.each do |timeslot|
 end
 
 #User 
-user0 = User.create(profile_id: worker1.id, profile_type: "Worker", username: "joyce", password: "123")
-user1 = User.create(profile_id: worker2.id, profile_type: "Worker", username: "hadi", password: "123")
-user2 = User.create(profile_id: worker3.id, profile_type: "Worker", username: "kevin", password: "123")
-user3 = User.create(profile_id: worker4.id, profile_type: "Worker", username: "username1", password: "123")
+user0 = User.create(profile_id: worker1.id, profile_type: "Worker", username: "rob", password: "123")
+user1 = User.create(profile_id: worker2.id, profile_type: "Worker", username: "ronald", password: "123")
+user2 = User.create(profile_id: worker3.id, profile_type: "Worker", username: "jack", password: "123")
+user3 = User.create(profile_id: worker4.id, profile_type: "Worker", username: "mary", password: "123")
 user4 = User.create(profile_id: worker5.id, profile_type: "Worker", username: "username2", password: "123")
 user5 = User.create(profile_id: customer1.id, profile_type: "Customer", username: "username3", password: "123")
 user6 = User.create(profile_id: customer2.id, profile_type: "Customer", username: "username4", password: "123")
