@@ -30,15 +30,16 @@ class AppointmentsController < ApplicationController
   
   def update
     appointment = Appointment.find(params[:id])
+    # byebug
     status = appointment.status
     if status == "requested"
       appointment.update(status: "accepted")
       render json: @appointment
     elsif status == "accepted"
       appointment.update(status: "completed")
-      render json: @appointment.errors.full_messages, status: :unprocessable_entity
+      render json: @appointment
     else
-      nil
+      render json: @appointment.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +48,7 @@ class AppointmentsController < ApplicationController
   end
 
   def summary
-    confirmed_appointments= current_user.profile.appointments.where(status: :confirmed)
+    confirmed_appointments = current_user.profile.appointments.where(status: 'completed')
     total_cost  =  confirmed_appointments.sum(:total_cost)
     tips = confirmed_appointments.sum(:tip)
     return render json: {total_cost: total_cost, tips: tips}
